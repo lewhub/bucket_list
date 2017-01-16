@@ -64,10 +64,15 @@ module.exports = {
     login: function(req, res) {
         User
             .findOne( { email: req.body.email } )
-            .exec( function(err, user) {
+            .exec( function(err, user) {    
                 if (err) return console.log(err)
                 if (!user) return res.json( { success: false, message: "Account with email provided does not exist." } )
                 // todo - finish login back end implementation.
+                if (user && !user.validPassword(req.body.password)) return res.json( { success: false, message: "Incorrect Password" } );
+                var token = jwt.sign(user.toObject(), process.env.secret, {
+                    expiresIn: "1h"
+                })
+                res.json({ success: true, token: token, user: user, message: "loggged in." });
             })
     }
 }
