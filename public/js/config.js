@@ -1,6 +1,23 @@
 ( function(){
     angular.module("bucket_life")
-        .config( function($stateProvider, $urlRouterProvider){
+        .config( function($stateProvider, $urlRouterProvider, $httpProvider){
+            $httpProvider.interceptors.push( function($window){
+                return {
+                    "request": function(config) {
+                        var token = $window.localStorage["jwt-token"];
+                        if (token) {
+                            config.headers["x-access-token"] = token;
+                        }
+                        return config;
+                    },
+                    "response": function(response) {
+                        if (response.data.token) {
+                            $window.localStorage["jwt-token"] = response.data.token;
+                        }
+                        return response;
+                    }
+                }
+            })
             $urlRouterProvider.otherwise("/introduction")
 
             $stateProvider

@@ -1,0 +1,40 @@
+<style>
+    .login-btn {
+        color: black;
+    }
+    .back-btn {
+        margin-top: 20px;
+        color: black;
+    }
+    .center-text {
+        text-align: center;
+    }
+    #form {
+        margin-top: 50px;
+    }
+</style>
+<div class="container">
+    <!-- form -->
+    <div id="form">
+        <!--email-->
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="email" id="email">
+                <label for="email">Email:</label>
+            </div>
+        </div>
+        <!--password-->
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="password" id="password">
+                <label for="password">Password:</label>
+            </div>
+        </div>
+        <!--login-->
+        <div class="center-text">
+            <a ui-sref="profile" class="waves-effect waves-light btn blue-grey lighten-3 login-btn">Login</a>
+            <br>
+            <a ui-sref="introduction" class="waves-effect waves-light btn blue-grey lighten-3 back-btn">back to home</a>
+        </div>
+    </div>
+</div>

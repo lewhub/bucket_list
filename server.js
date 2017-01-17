@@ -31,3 +31,5 @@ app.listen(port, function(err){
 })
 
 // todo - make partials template files and then make front end signup and login pages with text fields and buttons.
+// todo (1.16.17) - make login template with text fields and buttons and then profile view and then back end implementation. 
+// todo (1.17.17) - continue signup and login on front end + back end 

@@ -18,27 +18,27 @@
         <!--email input-->
         <div class="row">
             <div class="input-field col s12">
-                <input type="email" id="email-btn">
+                <input ng-model="user_ctrl.signup_info.email" type="email" id="email-btn">
                 <label for="email-btn">Email:</label>
             </div>
         </div>
         <!-- password input -->
         <div class="row">
             <div class="input-field col s12">
-                <input type="password" id="pw-btn">
+                <input ng-model="user_ctrl.signup_info.password" type="password" id="pw-btn">
                 <label for="pw">Password:</label>
             </div>
         </div>
         <!-- confirm pw input -->
         <div class="row">
             <div class="input-field col s12">
-                <input type="password" id="pw-confirm-btn">
+                <input ng-model="user_ctrl.signup_info.confirm_password" type="password" id="pw-confirm-btn">
                 <label for="pw-confirm-btn">Confirm Password:</label>
             </div>
         </div>
         <!-- sumbit btn -->
         <div class="center-content">
-            <a ui-sref="profile" class="waves-effect waves-light btn blue-grey lighten-3 signup-btn">Sign Up</a>
+            <a ui-sref="profile" ng-click="user_ctrl.signup()" class="waves-effect waves-light btn blue-grey lighten-3 signup-btn">Sign Up</a>
             <br>
             <a ui-sref="introduction" class="waves-effect waves-light btn blue-grey lighten-3 back-btn">back to home</a>
         </div>
