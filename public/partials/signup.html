@@ -12,6 +12,38 @@
     .center-content {
         text-align: center;
     }
+    /* Flash Message Box */
+    .close-info-screen {
+        text-align: right;
+    }
+    .close-info-screen-btn {
+        -webkit-appearance: none !important; 
+        background: #40c4ff;
+        font-size: 22px;
+        border: 1px outset #40c4ff;
+    }
+    .close-info-screen-btn:focus {
+        outline-style: none;
+    }
+    .close-info-screen-btn:active {
+        border: 1px solid #40c4ff;
+        border-style: inset;
+        background: blue-grey darken-4;
+    }
+    #flash-msg-text {
+        margin-left: 50px;
+        font-size: 22px;
+    }
+    #flash-header-text {
+        font-size: 22px;
+        margin-right: 50%;
+    }
+    #flash-row {
+        position: absolute;
+        top: 0;
+        left: 34%;
+        width: 100%;
+    }
 </style>
 <div class="container">
     <div id="form-div">
@@ -38,9 +70,22 @@
         </div>
         <!-- sumbit btn -->
         <div class="center-content">
-            <a ui-sref="profile" ng-click="user_ctrl.signup()" class="waves-effect waves-light btn blue-grey lighten-3 signup-btn">Sign Up</a>
+            <a ng-click="user_ctrl.signup()" class="waves-effect waves-light btn blue-grey lighten-3 signup-btn">Sign Up</a>
             <br>
             <a ui-sref="introduction" class="waves-effect waves-light btn blue-grey lighten-3 back-btn">back to home</a>
+        </div>
+    </div>
+</div>
+<!-- Flash Message Layover -->
+    <div ng-show="user_ctrl.show_flash_message" id="flash-row" class="row">
+        <div class="col s4">
+            <div class="card-panel brown lighten-4 flash-div-content">
+                <div class="close-info-screen">
+                    <span id="flash-header-text"><u>Cannot Submit Form:</u></span>
+                    <input ng-click="user_ctrl.toggleFlash()" class="close-info-screen-btn" type="button" value="x">
+                </div>
+                <span id="flash-msg-text"> {{ user_ctrl.flash_message }} </span>
+            </div>
         </div>
     </div>
 </div>

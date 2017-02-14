@@ -1,3 +1,10 @@
+<style>
+    #logout-btn {
+        -webkit-appearance: none;
+        font-size: 18px;
+    }
+</style>
 <div class="container">
     {{ profile_ctrl.title }}
+    <input id="logout-btn" type="button" value="Logout" ng-click="global_ctrl.logout()">
 </div>

@@ -7,6 +7,7 @@
         function GlobalController($window, $rootScope, $state) {
             var vm = this;
             vm.title = "global ctrl title";
+            vm.session_expired = true;
 
             vm.parse_jwt = function(token) {
                 var base64Url = token.split(".")[1];
@@ -25,7 +26,25 @@
 
             vm.logout = function(){
                 $window.localStorage.removeItem("jwt-token");
+                $state.go("introduction");
             }
+
+            
+
+            $rootScope.$on("$stateChangeStart", function(event, toState) {
+                var curr_state = toState.name;
+                if (curr_state === "introduction" && vm.is_authed() > 0) {
+                    vm.session_expired = false;
+                } else if (curr_state === "introduction" && (!vm.is_authed() || vm.is_authed() === 0)) {
+                    vm.session_expired = true;
+                }
+                if (curr_state === "profile") {
+                    if (!vm.is_authed() || vm.is_authed() === 0) {
+                        event.preventDefault();
+                        $state.go("login");
+                    }
+                }
+            });
 
         }
 })()

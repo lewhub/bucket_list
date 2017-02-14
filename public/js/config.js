@@ -31,7 +31,7 @@
                     controller: "UserController as user_ctrl"
                 })
                 .state("login", {
-                    url: "/login",
+                    url: "/login/:flash_message",
                     templateUrl: "/partials/login.html",
                     controller: "UserController as user_ctrl"
                 })

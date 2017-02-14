@@ -21,14 +21,26 @@ module.exports = {
     create: function(req, res) {
         var user = new User( req.body );
         user.password = user.generateHash( req.body.password );
-        user
-            .save( function(err, user) {
-                if (err) return console.log(err)
-                var token = jwt.sign(user.toObject(), process.env.secret, {
-                    expiresIn: "1h"
+        if (user.validPassword(req.body.confirm_password)) {
+            user
+                .save( function(err, user) {
+                    if (err) {
+                        if (err.code === 11000) {
+                            return res.json( { success: false, message: "Email already registered." } );
+                        } else {
+                            return console.log(err)
+                        }
+                        
+                    }
+                    var token = jwt.sign(user.toObject(), process.env.secret, {
+                        expiresIn: "1h"
+                    })
+                    res.json( { success: true, message: "Account created.", user: user, token: token } )
                 })
-                res.json( { success: true, message: "Account created.", user: user, token: token } )
-            })
+        } else {
+            res.json( { success: false, message: "Passwords do not match." } )
+        }
+       
     },
     update: function(req, res) {
         User

@@ -12,9 +12,12 @@
         <h2>Create and track the things that you want to accomplish the most during your time on this Earth.</h2>
     </div>
     <!-- login and signup buttons -->
-    <div>
+    <div ng-show="global_ctrl.session_expired">
         <p>Continue to the signup page to get started or login if you already have an account.</p>
         <a ui-sref="signup" class="waves-effect waves-light btn blue-grey lighten-3 intro-btn">Signup</a>
         <a ui-sref="login" class="waves-effect waves-light btn blue-grey lighten-3 intro-btn">Login</a>
+    </div>
+    <div ng-hide="global_ctrl.session_expired">
+        <a ui-sref="profile" class="waves-effect waves-light btn blue-grey lighten-3 intro-btn">Profile</a>
     </div>
 </div>
