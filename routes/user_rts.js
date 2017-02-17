@@ -7,7 +7,7 @@ user_router.post("/login", user_ctrl.login);
 user_router.post("/", user_ctrl.create);
 
 
-
+user_router.use("/:id", user_ctrl.verify_user)
 user_router.get("/:id", user_ctrl.show);
 user_router.patch("/:id", user_ctrl.update);
 user_router.delete("/:id", user_ctrl.delete_account);

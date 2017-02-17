@@ -15,10 +15,13 @@
                 return JSON.parse($window.atob(base64));
             }
             vm.is_authed = function(){
+                // console.log("is_authed method fired!")
                 var token = $window.localStorage["jwt-token"];
                 if (token) {
                     var params = vm.parse_jwt(token);
-                    return Math.round( new Date().getTime() / 1000 <= params.exp );
+                    // console.log(1,params)
+                    // console.log(2, Math.round(new Date().getTime() / 1000) <= params.exp)
+                    return Math.round(new Date().getTime() / 1000) <= params.exp;
                 } else {
                     return false;
                 }

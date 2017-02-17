@@ -15,7 +15,8 @@ module.exports = {
             .findOne( { _id: req.params.id })
             .exec( function(err, user) {
                 if (err) return console.log(err)
-                res.json( { success: true, message: "User found.", user: user } )
+                var privileges = String(user._id) === req.decoded._id;
+                res.json( { success: true, message: "User found.", user: user, privileges: privileges } )
             })
     },
     create: function(req, res) {
@@ -86,5 +87,20 @@ module.exports = {
                 })
                 res.json({ success: true, token: token, user: user, message: "loggged in." });
             })
+    },
+    verify_user: function(req, res, next) {
+        console.log(1, "in verify user route")
+        var token = req.body.token || req.query.token || req.headers["x-access-token"];
+        console.log(2, token)
+        if (token) {    
+            jwt.verify(token, process.env.secret, function(err, decoded){
+                if (err) return res.json( { success: false, message: "token expired" } )
+                req.decoded = decoded;
+                console.log(3, decoded);
+                next();
+            })
+        } else {
+            return res.status.json( { success: false, message: "token not found" } )
+        }
     }
 }

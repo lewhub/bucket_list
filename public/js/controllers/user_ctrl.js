@@ -78,7 +78,7 @@
             function login_res(res) {
                 console.log(res);
                 if (res.data.success) {
-                    $state.go("profile");
+                    $state.go("profile", { id: res.data.user._id });
                 } else {
                     vm.show_flash_message = true;
                     if (res.data.message === "Account with email provided does not exist.") {

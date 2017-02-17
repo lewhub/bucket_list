@@ -7,8 +7,8 @@ var user_schema = Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
-    bio: { type: String },
-    profile_photo: { type: String }
+    bio: { type: String, default: "" },
+    profile_photo: { type: String, default: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSS-2Ez5pll3TamIt5o-bzdAWRb4MZeNpLP3oePxA3BNpSu1NjJnT5TMcU" }
 })
 
 user_schema.methods.generateHash = function(password) {

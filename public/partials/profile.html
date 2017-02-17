@@ -1,10 +1,67 @@
 <style>
-    #logout-btn {
+    .edit-buttons {
         -webkit-appearance: none;
         font-size: 18px;
     }
+    #bio-area:focus {
+        outline-style: none;
+    }
+    #bio-area {
+        padding: 10px;
+    }
+    #photo-card-email {
+        background: #82CFFD;
+        color: black;
+    }
+    #photo-card-img {
+        height: 384px;
+        width: 384px;
+    }
+    #change-photo-container {
+        height: 384px;
+        width: 384px;
+    }
 </style>
 <div class="container">
-    {{ profile_ctrl.title }}
-    <input id="logout-btn" type="button" value="Logout" ng-click="global_ctrl.logout()">
+    <div>
+        <!-- photo card -->
+        <div class="row">
+            <div class="col s4">
+                <div class="card">
+                    <div ng-hide="profile_ctrl.editing" class="card-image">
+                        <img  id="photo-card-img"  ng-src="{{ profile_ctrl.user.profile_photo }}">
+                        <span id="photo-card-email" class="card-title"> {{ profile_ctrl.user.email }} </span>
+                    </div>
+                    <div ng-show="profile_ctrl.editing">
+                        <div id="change-photo-container">
+                            <div style="text-align:center; margin-top: 40%; display: inline-block; margin-left: 35px;">
+                                <input ng-click="profile_ctrl.upload_photo()" type="button" value="Upload Photo">
+                                <p>Click the button to upload a different profile photo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>Bio: {{ profile_ctrl.user.bio }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<h2 id="email-heading">  </h2>-->
+    </div>
+    <div ng-show="profile_ctrl.privileges">
+        <input ng-click="profile_ctrl.show_item_dropdown()" type="button" value="Add Bucket List Item">
+        <input class="edit-button" type="button" value="Logout" ng-click="global_ctrl.logout()">
+        <input class="edit-button" type="button" value="Delete Account">
+        <input id="edit-info-btn" ng-click="profile_ctrl.begin_editing()" class="edit-button" type="button" value="Edit Profile Information">
+    </div>
+    <div ng-show="profile_ctrl.editing">
+        <input id="edit_email" type="text" ng-model="profile_ctrl.original_email">
+        <textarea id="bio-area" ng-model="profile_ctrl.original_bio" placeholder="Add a bio to your profile describing your interests and how those interests compare to your current bucket list items."></textarea>
+    </div>
+
+    <!-- item dropdown -->
+    <div ng-show="profile_ctrl.adding_item">
+        <h1>adding item....</h1>
+    </div>
 </div>
