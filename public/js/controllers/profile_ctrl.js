@@ -2,9 +2,9 @@
     angular.module("bucket_life")
         .controller("ProfileController", ProfileController)
 
-        ProfileController.$inject = ["user_fac", "$stateParams"];
+        ProfileController.$inject = ["user_fac", "$stateParams", "item_fac"];
 
-        function ProfileController(user_fac, $stateParams){
+        function ProfileController(user_fac, $stateParams, item_fac){
             var vm = this;
             vm.title = "profile controller title";
             vm.privileges = false;
@@ -16,14 +16,42 @@
             }
             vm.user_info();
 
+            vm.new_item = new Object();
+
             vm.show_item_dropdown = function() {
                 vm.adding_item = !vm.adding_item;
+                var btn = angular.element(document.querySelector("#add-item"));
+                var logout_btn = angular.element(document.querySelector("#logout-btn"));
+                var edit_btn = angular.element(document.querySelector("#edit-btn"));
+                var edit_info_btn = angular.element(document.querySelector("#edit-info-btn"));
+                if (vm.adding_item) {
+                    btn.val("Save to Bucket List");
+                    logout_btn.attr("disabled", true);
+                    edit_btn.attr("disabled", true);
+                    edit_info_btn.attr("disabled", true);
+                } else {
+                    btn.val("Add Bucket List Item");
+                    logout_btn.attr("disabled", false);
+                    edit_btn.attr("disabled", false);
+                    edit_info_btn.attr("disabled", false);
+                    vm.new_item.photo = vm.new_photo;
+                    console.log(1, vm.new_item);
+                    item_fac.create($stateParams.id, vm.new_item)
+                        .then(item_create, err_callback)
+                }
                 // change the text on the adding item button to add/save item.
                 // var btn = angular.element(document.querySelector(""))
+            }
+
+            function item_create(res) {
+                console.log(2, res);
             }
            
             vm.begin_editing = function() {
                 var btn = angular.element(document.querySelector("#edit-info-btn"));
+                var logout_btn = angular.element(document.querySelector("#logout-btn"));
+                var edit_btn = angular.element(document.querySelector("#edit-btn"));
+                var add_item_btn = angular.element(document.querySelector("#add-item"));
                 vm.original_email = vm.user.email;
                 vm.original_bio = vm.user.bio;
                 // console.log(1, vm.original_bio)
@@ -55,10 +83,18 @@
                 // console.log(btn.val())
                 // var original_email = vm.user.email;
                 vm.editing = !vm.editing;
-                if (vm.editing) 
+                if (vm.editing) {
                     btn.val(save_text);
-                else
+                    logout_btn.attr("disabled", true);
+                    edit_btn.attr("disabled", true);
+                    add_item_btn.attr("disabled", true);
+                }
+                else {
                     btn.val(edit_text);
+                    logout_btn.attr("disabled", false);
+                    edit_btn.attr("disabled", false);
+                    add_item_btn.attr("disabled", false);
+                }
             }
 
 
@@ -75,10 +111,18 @@
             }
 
             function photo_upload_res(res) {
+                // make it so it is different when uploading profile picture from bucket list items
                 // console.log(1, res.url)
                 // console.log(2, res.filename)
                 // console.log(3, res)
                 vm.new_photo = res.url;
+                vm.new_photo_file_name = res.filename;
+                vm.show_filename = true;
+                var p = angular.element(document.querySelector("#filename-p"));
+                p.css("display", "inline");
+                console.log(1, p)
+                p.html(vm.new_photo_file_name);
+                
 
             }
 
