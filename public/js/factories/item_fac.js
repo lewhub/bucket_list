@@ -7,12 +7,20 @@
         function item_fac($http) {
             var api = "/items/";
             var service = {
-                create: create
+                create: create,
+                show: show,
+                user_index: user_index
             }
             return service
 
             function create(id, data) {
                 return $http.post(api + id, data);
+            }
+            function show(id) {
+                return $http.get(api + id);
+            }
+            function user_index(id) {
+                return $http.get(api + "all/" + id);
             }
         }
 })()

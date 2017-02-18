@@ -1,0 +1,26 @@
+<style>
+    .bucket-item {
+        width: 500px !important;
+        display: inline-block;
+    }
+    .collection-sizing {
+        padding-left: 135px;
+    }
+</style>
+<div class="container">
+    <div class="collection collection-sizing">
+        <div ng-repeat="item in bucket_list_ctrl.items" class="collection-item bucket-item" ng-mouseover="bucket_list_ctrl.completed($index, item._id, $event)" ng-mouseleave="bucket_list_ctrl.toggle_status()">
+            <div class="col s6 m7">
+                <div class="card">
+                    <div class="card-image">
+                        <img ng-src="{{ item.photo }}">
+                        <span id="status-label" class="card-title"></span>
+                    </div>
+                    <div class="card-content">
+                        <p> {{ item.description }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

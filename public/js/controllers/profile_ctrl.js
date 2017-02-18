@@ -2,9 +2,9 @@
     angular.module("bucket_life")
         .controller("ProfileController", ProfileController)
 
-        ProfileController.$inject = ["user_fac", "$stateParams", "item_fac"];
+        ProfileController.$inject = ["user_fac", "$stateParams", "item_fac", "$state"];
 
-        function ProfileController(user_fac, $stateParams, item_fac){
+        function ProfileController(user_fac, $stateParams, item_fac, $state){
             var vm = this;
             vm.title = "profile controller title";
             vm.privileges = false;
@@ -15,6 +15,11 @@
                     .then(user_info_res, err_callback)
             }
             vm.user_info();
+
+            vm.view_list = function() {
+               $state.go("bucket_list", { id: $stateParams.id } )
+            }
+            
 
             vm.new_item = new Object();
 
@@ -34,6 +39,7 @@
                     logout_btn.attr("disabled", false);
                     edit_btn.attr("disabled", false);
                     edit_info_btn.attr("disabled", false);
+
                     vm.new_item.photo = vm.new_photo;
                     console.log(1, vm.new_item);
                     item_fac.create($stateParams.id, vm.new_item)
@@ -45,6 +51,9 @@
 
             function item_create(res) {
                 console.log(2, res);
+                var filename_p = angular.element(document.querySelector("#filename-p"));
+                filename_p.html("");
+                vm.new_item = {};
             }
            
             vm.begin_editing = function() {

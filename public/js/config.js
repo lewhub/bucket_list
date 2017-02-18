@@ -40,5 +40,10 @@
                     templateUrl: "/partials/profile.html",
                     controller: "ProfileController as profile_ctrl"
                 })
+                .state("bucket_list", {
+                    url: "/bucket-list/:id",
+                    templateUrl: "/partials/bucket_list.html",
+                    controller: "BucketListController as bucket_list_ctrl"
+                })
         })
 })()

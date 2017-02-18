@@ -25,6 +25,23 @@
         margin-top: 20px;
         padding: 50px;
     }
+    #bucket-list-btn {
+        -webkit-appearance: none;
+        font-size: 18px;
+        background: white;
+        color: black;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 4px;
+        padding-bottom: 5px;
+    }
+    #bucket-list-btn:focus {
+        outline-style: none;
+    }
+    #bucket-list-div {
+        margin-bottom: 16px;
+        margin-top: -14px;
+    }
 </style>
 <div class="container">
     <div>
@@ -53,12 +70,16 @@
 
         <!--<h2 id="email-heading">  </h2>-->
     </div>
+    <div id="bucket-list-div">
+        <input ng-click="profile_ctrl.view_list()" id="bucket-list-btn" type="button" value="My Bucket List">
+    </div>
     <div ng-show="profile_ctrl.privileges">
         <input id="add-item" ng-click="profile_ctrl.show_item_dropdown()" type="button" value="Add Bucket List Item">
         <input id="logout-btn" class="edit-button" type="button" value="Logout" ng-click="global_ctrl.logout()">
         <input id="edit-btn" class="edit-button" type="button" value="Delete Account">
         <input id="edit-info-btn" ng-click="profile_ctrl.begin_editing()" class="edit-button" type="button" value="Edit Profile Information">
     </div>
+    
     <div ng-show="profile_ctrl.editing">
         <input id="edit_email" type="text" ng-model="profile_ctrl.original_email">
         <textarea id="bio-area" ng-model="profile_ctrl.original_bio" placeholder="Add a bio to your profile describing your interests and how those interests compare to your current bucket list items."></textarea>
