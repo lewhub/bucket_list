@@ -9,7 +9,8 @@
             var service = {
                 create: create,
                 show: show,
-                user_index: user_index
+                user_index: user_index,
+                update: update
             }
             return service
 
@@ -21,6 +22,9 @@
             }
             function user_index(id) {
                 return $http.get(api + "all/" + id);
+            }
+            function update(id, data) {
+                return $http.patch(api + "update/" + id, data);
             }
         }
 })()

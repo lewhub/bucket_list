@@ -37,6 +37,25 @@ module.exports = {
                 res.json({success: true, message: "item found", item: item});
             })
     },
+    update_status: function(req, res) {
+        Item
+            .findOne({_id: req.params.id})
+            .exec( function(err, item) {
+                
+                if (err) return console.log(err)
+                console.log(1, req.body)
+                console.log(2, item)
+                console.log(3, item.completed)
+                
+                if (req.body.status !== undefined) {
+                    item.completed = req.body.status;
+                }
+                item.save( function(err, item) {
+                    if (err) return console.log(err)
+                    res.json({ success: true, message: "item updated", item: item })
+                })
+            })
+    },
     index_user_items: function(req, res) {
         User
             .findOne({_id: req.params.id})

@@ -15,44 +15,34 @@
             }
             vm.show_list();
 
-            vm.left = function(evt) {
-            //    var el = angular.element(evt.target.children[0])
-
-            //     if (el.length > 0) {
-            //         if (angular.element(evt.target.children[0].children).length > 0) {
-            //             el = angular.element(evt.target.children[0].children[0].children[0].children[1]);
-            //             el.css("opacity", 0);
-            //         }
-            //     }
+            vm.change_status = function(item) {
+                var status = !item.completed;
+                item_fac
+                    .update(item._id, { status: status })
+                    .then(status_res, err_callback)
             }
 
-            vm.completed = function(evt) {
-      
-                var el = angular.element(evt.target.children[0])
-             
-                if (el.length > 0) {
-                    
-                    if (angular.element(evt.target.children[0].children).length > 0) {
-                        el = angular.element(evt.target.children[0].children[0].children[0].children[1]);
-                        // el.addClass("show-animation")
-                        el.css({});
-                        // el.css("opacity", 1);
-                        // el.animate({
-                        //     opacity: 1
-                        //  }, {
-                        //      duration: 1000,
-                        //      done: function() {
-                        //          console.log("animation done");
-                        //          el.css({opacity: 0})
-                        //      }
-                        //  })
-                        // if (status) {
-                        //     el.text("Completed!");
-                        // } else {
-                        //     el.text("Not Completed Yet.");
-                        // }
-                    }    
-                }
+            function status_res(res) {
+                console.log(1, res);
+                vm.show_list();
+            }
+
+            vm.left = function(id) {
+                var span = angular.element(document.getElementById(id));
+                var icon_span = angular.element(document.getElementById(id + "check-span"));
+                var icon = angular.element(document.getElementById(id + "check"));
+                span.css("opacity", 0);
+                icon_span.css("opacity", 0);
+                icon.css("opacity", 0);
+            }
+
+            vm.completed = function(id) {
+                var span = angular.element(document.getElementById(id));
+                var icon_span = angular.element(document.getElementById(id + "check-span"));
+                var icon = angular.element(document.getElementById(id + "check"));
+                span.css("opacity", 1);
+                icon_span.css("opacity", 1);
+                icon.css("opacity", 1);
 
             }
             
@@ -71,6 +61,29 @@
                    return "Completed!"; 
                 } else {
                     return "Not Completed Yet."
+                }
+            }
+
+            vm.icon_decision = function(val) {
+                if (val) {
+                    return "fa fa-times x-check";
+                } else {
+                    return "fa fa-check";
+                }
+            }
+            vm.icon_a_decision = function(val) {
+                if (val) {
+                    return "btn-floating halfway-fab waves-effect waves-light red check-c";
+                } else {
+                    return "btn-floating halfway-fab waves-effect waves-light green check-c";
+                }
+            }
+
+            vm.check_icon_status = function(val) {
+                if (val) {
+                    return "Mark item as not yet completed";
+                } else {
+                    return "Mark item as completed";
                 }
             }
 
