@@ -15,19 +15,44 @@
             }
             vm.show_list();
 
-            vm.toggle_status = function() {
-                vm.show_status = !vm.show_status;
+            vm.left = function(evt) {
+            //    var el = angular.element(evt.target.children[0])
+
+            //     if (el.length > 0) {
+            //         if (angular.element(evt.target.children[0].children).length > 0) {
+            //             el = angular.element(evt.target.children[0].children[0].children[0].children[1]);
+            //             el.css("opacity", 0);
+            //         }
+            //     }
             }
 
-            vm.completed = function(item_index, item_id, evt) {
-                console.log(1, evt);
-                var f_id = vm.items[item_index]._id;
-
-                if (f_id === item_id) {
-                    vm.show_status = true;
+            vm.completed = function(evt) {
+      
+                var el = angular.element(evt.target.children[0])
+             
+                if (el.length > 0) {
+                    
+                    if (angular.element(evt.target.children[0].children).length > 0) {
+                        el = angular.element(evt.target.children[0].children[0].children[0].children[1]);
+                        // el.addClass("show-animation")
+                        el.css({});
+                        // el.css("opacity", 1);
+                        // el.animate({
+                        //     opacity: 1
+                        //  }, {
+                        //      duration: 1000,
+                        //      done: function() {
+                        //          console.log("animation done");
+                        //          el.css({opacity: 0})
+                        //      }
+                        //  })
+                        // if (status) {
+                        //     el.text("Completed!");
+                        // } else {
+                        //     el.text("Not Completed Yet.");
+                        // }
+                    }    
                 }
-               
-               
 
             }
             
@@ -40,5 +65,27 @@
                 console.log(454, "error");
                 console.log(res);
             }
+
+            vm.status_calc = function(val) {
+                if (val) {
+                   return "Completed!"; 
+                } else {
+                    return "Not Completed Yet."
+                }
+            }
+
         }
+
+
 })()
+
+// el.text is equal to item.completed
+// if item.
+/*
+ if item.completed 
+ vm.status = "Completed!"
+ else 
+ vm.status = "Not Completed Yet."
+
+
+*/

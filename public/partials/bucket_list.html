@@ -6,15 +6,25 @@
     .collection-sizing {
         padding-left: 135px;
     }
+    #status-label {
+        opacity: 0;
+    }
+    .show-animation {
+        opacity: 0;
+    }
+    .show-animation:hover {
+        opacity: "toggle";
+        transition: opacity, 2s, linear;
+    }
 </style>
 <div class="container">
     <div class="collection collection-sizing">
-        <div ng-repeat="item in bucket_list_ctrl.items" class="collection-item bucket-item" ng-mouseover="bucket_list_ctrl.completed($index, item._id, $event)" ng-mouseleave="bucket_list_ctrl.toggle_status()">
+        <div ng-repeat="item in bucket_list_ctrl.items" class="collection-item bucket-item" ng-mouseenter="bucket_list_ctrl.completed($event)" ng-mouseleave="bucket_list_ctrl.left($event)">
             <div class="col s6 m7">
                 <div class="card">
                     <div class="card-image">
                         <img ng-src="{{ item.photo }}">
-                        <span id="status-label" class="card-title"></span>
+                        <span id="status-label" class="card-title"> {{ bucket_list_ctrl.status_calc(item.completed) }}</span>
                     </div>
                     <div class="card-content">
                         <p> {{ item.description }} </p>
