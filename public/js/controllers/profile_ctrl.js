@@ -88,7 +88,6 @@
                     
                 }
 
-
                 // console.log(btn.val())
                 // var original_email = vm.user.email;
                 vm.editing = !vm.editing;

@@ -50,6 +50,9 @@ module.exports = {
                 if (req.body.status !== undefined) {
                     item.completed = req.body.status;
                 }
+                if (req.body.description !== undefined) {
+                    item.description = req.body.description;
+                }
                 item.save( function(err, item) {
                     if (err) return console.log(err)
                     res.json({ success: true, message: "item updated", item: item })

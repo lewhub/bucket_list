@@ -36,6 +36,39 @@
         margin-top: -1px !important;
         font-size: 26px !important;
     }
+    .edit-description-btn {
+        opacity: 0;
+        padding-left: 14px;
+        padding-top: 1px;
+        padding-right: 14px;
+        text-transform: none;
+        letter-spacing: 0;
+        font-size: 17px;
+        position: absolute;
+        margin-top: -32px;
+        right: 16px;
+    }
+    .textarea_div_c {
+        display: none;
+        margin-right: 113px;
+    }
+    .loading-icon {
+        position: absolute;
+        z-index: 10;
+        color: black;
+        border-radius: 111px;
+        margin-top: 4px;
+        left: 34%;
+        top: 26%;
+    }
+    .loading-div {
+        width: 100%;
+        height: 100%;
+        background: rgba(5, 40, 122, 0.4);
+        z-index: 10;
+        position: absolute;
+        font-size: 38px;
+    }
 </style>
 <div class="container">
     <div class="collection collection-sizing">
@@ -43,13 +76,24 @@
             <div class="col s6 m7">
                 <div class="card">
                     <div class="card-image">
+                        <div ng-show="bucket_list_ctrl.network_load" id="{{ item._id }}loading-div" class="loading-div">
+                            <i id="{{ item._id }}loading-icon" class="fa fa-refresh fa-spin fa-3x fa-fw loading-icon"></i>
+                        </div>
                         <img ng-src="{{ item.photo }}">
                         <span id="{{ item._id }}" class="card-title span-calc"> {{ bucket_list_ctrl.status_calc(item.completed) }}</span>
                         <span id="{{item._id}}check-span" class="check-span-c"> {{ bucket_list_ctrl.check_icon_status(item.completed) }} </span>
+                        
                         <a ng-click="bucket_list_ctrl.change_status(item)" id="{{item._id}}check" ng-class="bucket_list_ctrl.icon_a_decision(item.completed)"><i ng-class="bucket_list_ctrl.icon_decision(item.completed)"></i></a>
                     </div>
                     <div class="card-content">
-                        <p> {{ item.description }} </p>
+                        <p id="{{ item._id }}description"> {{ item.description }} </p>
+                        <div id="{{ item._id }}textarea_div" class="textarea_div_c input-field">
+                            <i class="fa fa-pencil prefix"></i>
+                            <textarea ng-click="bucket_list_ctrl.change_label_style(item)" id="{{ item._id }}textarea-description" class="materialize-textarea"> {{ bucket_list_ctrl.original_description }} </textarea>
+                            <label id="{{ item._id }}label_description" for="{{ item._id }}textarea-description">Description</label>
+                        </div>
+                        
+                        <button ng-click="bucket_list_ctrl.enable_edit( item )" id="{{ item._id }}edit" class="btn waves-effect waves-light cyan darken-1 edit-description-btn" type="button">Edit<i id="{{ item._id }}edit_icon" class="fa fa-pencil-square-o right"></i></button>
                     </div>
                 </div>
             </div>

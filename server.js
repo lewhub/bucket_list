@@ -41,3 +41,5 @@ app.listen(port, function(err){
 // todo 2.14.17 - start working on how the profile view will look.
 // todo 2.15.17 - make it so if the user token is verified, allow a user to edit and delete their profile. When viewing another user's profile, make it so those editing options don't appear.
 // todo 2.18.17 - make it so it shows one status of an item when hovering over a bucket list item.
+// todo 2.20.17 - make it so users can edit the description of a bucket list item and delete a bucket list item if they are logged in and looking at their bucket list.
+// todo 2.21.17 - make loading animation effective when editing an item.
