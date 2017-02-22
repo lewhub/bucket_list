@@ -45,5 +45,10 @@
                     templateUrl: "/partials/bucket_list.html",
                     controller: "BucketListController as bucket_list_ctrl"
                 })
+                .state("explore", {
+                    url: "/explore",
+                    templateUrl: "/partials/explore.html",
+                    controller: "ExploreController as explore_ctrl"
+                })
         })
 })()

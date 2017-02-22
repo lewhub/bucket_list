@@ -1,0 +1,59 @@
+<style>
+    .collection-sizing {
+        padding-left: 135px;
+    }
+    .bucket-item {
+        width: 500px !important;
+        display: inline-block;
+    }
+    .span-calc {
+        background: #2196f3;
+    }
+    .span-calc:hover {
+        cursor: pointer;
+    }
+    .span-calc:active {
+        border-style: inset;
+    }
+</style>
+<!-- item status toggle -->
+<nav>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="brand-logo center">
+            <li id="not-in-progress" class="active" ng-click="explore_ctrl.nav_toggle($event)"><a>Completed</a></li>
+            <li id="in-progress" ng-click="explore_ctrl.nav_toggle($event)"><a>In Progress</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="collection collection-sizing">
+        <div ng-repeat="item in explore_ctrl.items" class="collection-item bucket-item" ng-mouseenter="explore_ctrl.completed(item._id)" ng-mouseleave="explore_ctrl.left(item._id)">
+            <div class="col s6 m7">
+            <div class="card">
+                <div class="card-image">
+                    <!--<div ng-show="bucket_list_ctrl.network_load" id="{{ item._id }}loading-div" class="loading-div">
+                        <i id="{{ item._id }}loading-icon" class="fa fa-refresh fa-spin fa-3x fa-fw loading-icon"></i>
+                    </div>-->
+                    <img ng-src="{{ item.photo }}">
+                    <!--<a ng-click="bucket_list_ctrl.delete_item(item._id)" id="{{ item._id }}trash" class="btn-floating halfway-fab waves-effect waves-light red delete-icon"><i class="fa fa-trash-o"></i></a>-->
+                    <span ui-sref="profile( { id: item.user } )" id="{{ item._id }}" class="card-title span-calc"> {{ item.user_email || "Anonymous" }}</span>
+                    <!--<span id="{{item._id}}check-span" class="check-span-c"> {{ bucket_list_ctrl.check_icon_status(item.completed) }} </span>-->
+                    <!--<a ng-click="bucket_list_ctrl.change_status(item)" id="{{item._id}}check" ng-class="bucket_list_ctrl.icon_a_decision(item.completed)"><i ng-class="bucket_list_ctrl.icon_decision(item.completed)"></i></a>-->
+                </div>
+                <div class="card-content">
+                    <p id="{{ item._id }}description"> {{ item.description }} </p>
+                    <!--<div id="{{ item._id }}textarea_div" class="textarea_div_c input-field">
+                        <i class="fa fa-pencil prefix"></i>
+                        <textarea ng-click="bucket_list_ctrl.change_label_style(item)" id="{{ item._id }}textarea-description" class="materialize-textarea"> {{ bucket_list_ctrl.original_description }} </textarea>
+                        <label id="{{ item._id }}label_description" for="{{ item._id }}textarea-description">Description</label>
+                    </div>-->
+                    
+                    <!--<button ng-click="bucket_list_ctrl.enable_edit( item )" id="{{ item._id }}edit" class="btn waves-effect waves-light cyan darken-1 edit-description-btn" type="button">Edit<i id="{{ item._id }}edit_icon" class="fa fa-pencil-square-o right"></i></button>-->
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+

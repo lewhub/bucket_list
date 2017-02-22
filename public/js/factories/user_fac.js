@@ -13,7 +13,8 @@
                 create: create,
                 update: update,
                 remove_user: remove_user,
-                login: login
+                login: login,
+                login_introduction: login_introduction
             }
 
             return service;
@@ -35,6 +36,9 @@
             }
             function login(data) {
                 return $http.post(api + "login", data);
+            }
+            function login_introduction(data) {
+                return $http.post(api + "login-introduction", data);
             }
         }
 })()

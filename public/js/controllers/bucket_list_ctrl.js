@@ -8,7 +8,7 @@
             var vm = this;
             vm.title = "Bucket List Ctrl title";
             vm.show_status = false;
-            vm.network_load = true;
+            vm.network_load = false;
             vm.show_list = function() {
                 vm.network_load = true;
                 vm.show_status = true;
@@ -20,7 +20,7 @@
 
             vm.load_bar = function(item, show) {
                 var loading = angular.element(document.getElementById(item._id + "loading-div"));
-                // console.l
+                
                 if (show) {
                       loading.css("display", "block")
                 } else {
@@ -43,15 +43,33 @@
                 vm.show_list();
             }
 
+            vm.delete_item = function(item_id) {
+                console.log(1, item_id)
+                var data = { item_id: item_id };
+                var user_id = $stateParams.id;
+                vm.network_load = true;
+                console.log(data)
+                item_fac
+                    .remove_item(user_id, data)
+                    .then(delete_res, err_callback)
+            }
+            function delete_res(res) {
+                vm.network_load = false;
+                console.log(1, res);
+                vm.show_list();
+            }
+
             vm.left = function(id) {
                 var span = angular.element(document.getElementById(id));
                 var icon_span = angular.element(document.getElementById(id + "check-span"));
                 var icon = angular.element(document.getElementById(id + "check"));
                 var edit = angular.element(document.getElementById(id + "edit"));
+                var delete_icon = angular.element(document.getElementById(id + "trash"));
                 span.css("opacity", 0);
                 icon_span.css("opacity", 0);
                 icon.css("opacity", 0);
                 edit.css("opacity", 0);
+                delete_icon.css("opacity", 0);
             }
 
             vm.completed = function(id) {
@@ -59,10 +77,12 @@
                 var icon_span = angular.element(document.getElementById(id + "check-span"));
                 var icon = angular.element(document.getElementById(id + "check"));
                 var edit = angular.element(document.getElementById(id + "edit"));
+                var delete_icon = angular.element(document.getElementById(id + "trash"));
                 span.css("opacity", 1);
                 icon_span.css("opacity", 1);
                 icon.css("opacity", 1);
                 edit.css("opacity", 1);
+                delete_icon.css("opacity", 1);
             }
             vm.original_description;
             vm.edited_description;

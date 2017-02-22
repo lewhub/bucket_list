@@ -2,9 +2,9 @@
     angular.module("bucket_life")
         .controller("GlobalController", GlobalController)
 
-        GlobalController.$inject = ["$window", "$rootScope", "$state"];
+        GlobalController.$inject = ["$window", "$rootScope", "$state", "user_fac"];
 
-        function GlobalController($window, $rootScope, $state) {
+        function GlobalController($window, $rootScope, $state, user_fac) {
             var vm = this;
             vm.title = "global ctrl title";
             vm.session_expired = true;
@@ -31,6 +31,36 @@
                 $window.localStorage.removeItem("jwt-token");
                 $state.go("introduction");
             }
+
+            vm.login_introduction = function() {
+                var token = $window.localStorage["jwt-token"];
+                var data = { token: token };
+                user_fac
+                    .login_introduction(data)
+                    .then(login_intro_res, err_callback)
+            }
+
+            function login_intro_res(res) {
+                console.log(1, "global", res);
+                // console.log(2, res.data.user._id);
+                // console.log(3, res.data.success)
+                var verified = res.data.success;
+                
+                if (verified) {
+                    var user_id = res.data.user._id;
+                    $state.go("profile", {id: user_id})
+                } else {
+                    $state.go("login")
+                }
+                
+            }
+
+            function err_callback(res) {
+                console.log("error in global ctrl");
+                console.log(res);
+            }
+
+            
 
             
 

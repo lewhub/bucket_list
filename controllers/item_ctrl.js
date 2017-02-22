@@ -17,6 +17,7 @@ module.exports = {
             .exec( function(err, user){
                 if (err) return console.log(err)
                 new_item.user = user._id;
+                new_item.user_email = user.email;
                 new_item.save( function(err, item) {
                     if (err) return console.log(err)
                     user.items.push( item );
@@ -72,5 +73,25 @@ module.exports = {
                 })
             })
         
-    }
+    },
+    delete_item: function(req, res){
+        console.log(1, req)
+        console.log(2, req.body)
+        User
+            .findOne( { _id: req.params.id } )
+            .exec( function(err, user) {
+                if (err) return console.log(err)
+                console.log(3, req.body)
+                user.items.pull({ _id: req.body.item_id });
+                user.save( function(err, user) {
+                    if (err) return console.log(err)
+                    Item
+                        .findOneAndRemove({_id: req.body.item_id}, function(err) {
+                            if (err) return console.log(err)
+                            res.json( { success: true, message: "item deleted", user: user } );
+                        })
+                   
+                })
+            })
+    } 
 }

@@ -69,6 +69,12 @@
         position: absolute;
         font-size: 38px;
     }
+    .delete-icon {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        opacity: 0;
+    }
 </style>
 <div class="container">
     <div class="collection collection-sizing">
@@ -80,9 +86,9 @@
                             <i id="{{ item._id }}loading-icon" class="fa fa-refresh fa-spin fa-3x fa-fw loading-icon"></i>
                         </div>
                         <img ng-src="{{ item.photo }}">
+                        <a ng-click="bucket_list_ctrl.delete_item(item._id)" id="{{ item._id }}trash" class="btn-floating halfway-fab waves-effect waves-light red delete-icon"><i class="fa fa-trash-o"></i></a>
                         <span id="{{ item._id }}" class="card-title span-calc"> {{ bucket_list_ctrl.status_calc(item.completed) }}</span>
                         <span id="{{item._id}}check-span" class="check-span-c"> {{ bucket_list_ctrl.check_icon_status(item.completed) }} </span>
-                        
                         <a ng-click="bucket_list_ctrl.change_status(item)" id="{{item._id}}check" ng-class="bucket_list_ctrl.icon_a_decision(item.completed)"><i ng-class="bucket_list_ctrl.icon_decision(item.completed)"></i></a>
                     </div>
                     <div class="card-content">
