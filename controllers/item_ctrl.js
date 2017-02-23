@@ -10,6 +10,19 @@ module.exports = {
             res.json( { success: true, message: "all items", items: items } );
         })
     },
+    index_of_status: function(req, res) {
+        Item
+            .find({ completed: true })
+            .exec( function(err, completed_list) {
+                if (err) return console.log(err)
+                Item
+                    .find({ completed: false })
+                    .exec( function(err, in_progress_list) {
+                        if (err) return console.log(err)
+                        res.json( { success: true, message: "both index statuses", completed_list: completed_list, in_progress_list: in_progress_list } )
+                    })
+            })
+    },
     create: function(req, res) {
         var new_item = new Item( req.body );
         User

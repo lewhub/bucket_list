@@ -8,6 +8,7 @@
             var api = "/items/";
             var service = {
                 index: index,
+                index_of_status: index_of_status,
                 create: create,
                 show: show,
                 user_index: user_index,
@@ -18,6 +19,9 @@
 
             function index() {
                 return $http.get(api);
+            }
+            function index_of_status() {
+                return $http.get(api + "index-of-status");
             }
             function create(id, data) {
                 return $http.post(api + id, data);

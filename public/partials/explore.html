@@ -15,19 +15,58 @@
     .span-calc:active {
         border-style: inset;
     }
+    .toggle-btn {
+        background-color: #3f51b5;
+        /*width: 500px;*/
+    }
+    .toggle-btn:hover {
+        background-color: #b2dfdb !important;
+    }
+    .active {
+        background: #cfd8dc !important;
+        color: black;
+    }
+    .li-toggle {
+        max-width: 478px;
+        width: 478px;
+    }
+    .logo-a {
+        /*color: #ffc107 !important;*/
+        background-color: #546e7a;
+        padding-left: 10px !important;
+        padding-right: 15px !important;
+        right: 0;
+    }
+    .search-div {
+        display: inline-block;
+        width: 26%;
+  
+    }
+    .search-icon {
+        /*background: white !important;*/
+        color: black !important;
+        font-size: 30px;
+    }
+  
 </style>
 <!-- item status toggle -->
-<nav>
+<nav class="blue lighten-5">
     <div class="nav-wrapper">
+        <div class="input-field search-div blue lighten-5">
+            <input ng-click="explore_ctrl.icon_fix()" id="search" type="search" ng-model="search">
+            <label class="label-icon" for="search"><i id="search-icon" class="fa fa-search search-icon"></i></label>
+
+        </div>
+        <a ui-sref="introduction" class="brand-logo logo-a">Bucket Life</a>
         <ul id="nav-mobile" class="brand-logo center">
-            <li id="not-in-progress" class="active" ng-click="explore_ctrl.nav_toggle($event)"><a>Completed</a></li>
-            <li id="in-progress" ng-click="explore_ctrl.nav_toggle($event)"><a>In Progress</a></li>
+            <li class="li-toggle" ng-click="explore_ctrl.nav_toggle($event)"><a class="toggle-btn active" id="not-in-progress">Completed</a></li>
+            <li class="li-toggle"  ng-click="explore_ctrl.nav_toggle($event)"><a class="toggle-btn" id="in-progress">In Progress</a></li>
         </ul>
     </div>
 </nav>
 <div class="container">
     <div class="collection collection-sizing">
-        <div ng-repeat="item in explore_ctrl.items" class="collection-item bucket-item" ng-mouseenter="explore_ctrl.completed(item._id)" ng-mouseleave="explore_ctrl.left(item._id)">
+        <div ng-repeat="item in explore_ctrl.choose_list() | filter:search" class="collection-item bucket-item" ng-mouseenter="explore_ctrl.completed(item._id)" ng-mouseleave="explore_ctrl.left(item._id)">
             <div class="col s6 m7">
             <div class="card">
                 <div class="card-image">

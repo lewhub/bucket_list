@@ -44,3 +44,5 @@ app.listen(port, function(err){
 // todo 2.20.17 - make it so users can edit the description of a bucket list item and delete a bucket list item if they are logged in and looking at their bucket list.
 // todo 2.21.17 - make loading animation effective when editing an item.
 // todo 2.22.17 - make it so users can delete a bucket list item.
+// todo 2.22.17 - make it so the explore page shows a completed list of bucket items and an in progress list of bucket items
+// todo 2.22.17 - finish search in explore page
