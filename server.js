@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 var morgan = require("morgan");
 var mongoose = require("mongoose");
 var body_parser = require("body-parser");
@@ -9,9 +9,14 @@ var dotenv = require("dotenv").config( { silent: true } );
 var user_routes = require("./routes/user_rts.js");
 var item_routes = require("./routes/item_rts.js");
 
-mongoose.connect("mongodb://localhost/bucket_list_site", function(err) {
+// mongoose.connect("mongodb://localhost/bucket_list_site", function(err) {
+//     if (err) return console.log(err)
+//     console.log("connected to mongo db locally");
+// })
+
+mongoose.connect(process.env.MLAB_URI, function(err) {
     if (err) return console.log(err)
-    console.log("connected to mongo db locally");
+    console.log("connected to mongo shell")
 })
 
 app.use(morgan("dev"));
