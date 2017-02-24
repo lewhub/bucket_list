@@ -5,5 +5,6 @@
 
 ## Language: JavaScript
 ## Stack: MEAN Stack
+## APIs used: Filestack API
 
 ## Created by Lewis Bracey
