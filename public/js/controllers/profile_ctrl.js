@@ -86,6 +86,8 @@
                     user_fac.update( $stateParams.id, vm.send_to_api )
                         .then(update_res , err_callback)
                     
+                } else {
+                    vm.new_photo = null;
                 }
 
                 // console.log(btn.val())
