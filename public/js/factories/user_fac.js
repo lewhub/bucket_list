@@ -10,6 +10,7 @@
             var service = {
                 index: index,
                 show: show,
+                guest_show: guest_show,
                 create: create,
                 update: update,
                 remove_user: remove_user,
@@ -24,6 +25,9 @@
             }
             function show( id ) {
                 return $http.get(api + id);
+            }
+            function guest_show(data) {
+                return $http.post(api + "guest-access/", data);
             }
             function create(data) {
                 return $http.post(api, data);

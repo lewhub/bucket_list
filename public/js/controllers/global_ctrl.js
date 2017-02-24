@@ -2,9 +2,9 @@
     angular.module("bucket_life")
         .controller("GlobalController", GlobalController)
 
-        GlobalController.$inject = ["$window", "$rootScope", "$state", "user_fac"];
+        GlobalController.$inject = ["$window", "$rootScope", "$state", "user_fac", "$stateParams"];
 
-        function GlobalController($window, $rootScope, $state, user_fac) {
+        function GlobalController($window, $rootScope, $state, user_fac, $stateParams) {
             var vm = this;
             vm.title = "global ctrl title";
             vm.session_expired = true;
@@ -15,7 +15,8 @@
                 return JSON.parse($window.atob(base64));
             }
             vm.is_authed = function(){
-                // console.log("is_authed method fired!")
+                
+                console.log("is_authed method fired!")
                 var token = $window.localStorage["jwt-token"];
                 if (token) {
                     var params = vm.parse_jwt(token);
@@ -26,6 +27,8 @@
                     return false;
                 }
             }
+
+         
 
             vm.logout = function(){
                 $window.localStorage.removeItem("jwt-token");
@@ -71,12 +74,12 @@
                 } else if (curr_state === "introduction" && (!vm.is_authed() || vm.is_authed() === 0)) {
                     vm.session_expired = true;
                 }
-                if (curr_state === "profile") {
-                    if (!vm.is_authed() || vm.is_authed() === 0) {
-                        event.preventDefault();
-                        $state.go("login");
-                    }
-                }
+                // if (curr_state === "profile") {
+                //     if (!vm.is_authed() || vm.is_authed() === 0) {
+                //         event.preventDefault();
+                //         $state.go("login");
+                //     }
+                // }
             });
 
         }

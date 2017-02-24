@@ -75,7 +75,25 @@
         left: 12px;
         opacity: 0;
     }
+     .logo-a {
+        /*color: #ffc107 !important;*/
+        background-color: #546e7a;
+        padding-left: 10px !important;
+        padding-right: 15px !important;
+        right: 0;
+    }
+    .email-heading {
+        background-color: #546e7a;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
 </style>
+<nav class="blue lighten-5">
+    <div class="nav-wrapper">
+        <a ui-sref="introduction" class="brand-logo logo-a">Bucket Life</a>
+        <a class="brand-logo center email-heading"> {{ bucket_list_ctrl.user.email }} </a>
+    </div>
+</nav>
 <div class="container">
     <div class="collection collection-sizing">
         <div ng-repeat="item in bucket_list_ctrl.items" class="collection-item bucket-item" ng-mouseenter="bucket_list_ctrl.completed(item._id)" ng-mouseleave="bucket_list_ctrl.left(item._id)">
@@ -86,10 +104,10 @@
                             <i id="{{ item._id }}loading-icon" class="fa fa-refresh fa-spin fa-3x fa-fw loading-icon"></i>
                         </div>
                         <img ng-src="{{ item.photo }}">
-                        <a ng-click="bucket_list_ctrl.delete_item(item._id)" id="{{ item._id }}trash" class="btn-floating halfway-fab waves-effect waves-light red delete-icon"><i class="fa fa-trash-o"></i></a>
+                        <a ng-show="bucket_list_ctrl.privileges" ng-click="bucket_list_ctrl.delete_item(item._id)" id="{{ item._id }}trash" class="btn-floating halfway-fab waves-effect waves-light red delete-icon"><i class="fa fa-trash-o"></i></a>
                         <span id="{{ item._id }}" class="card-title span-calc"> {{ bucket_list_ctrl.status_calc(item.completed) }}</span>
-                        <span id="{{item._id}}check-span" class="check-span-c"> {{ bucket_list_ctrl.check_icon_status(item.completed) }} </span>
-                        <a ng-click="bucket_list_ctrl.change_status(item)" id="{{item._id}}check" ng-class="bucket_list_ctrl.icon_a_decision(item.completed)"><i ng-class="bucket_list_ctrl.icon_decision(item.completed)"></i></a>
+                        <span ng-show="bucket_list_ctrl.privileges" id="{{item._id}}check-span" class="check-span-c"> {{ bucket_list_ctrl.check_icon_status(item.completed) }} </span>
+                        <a ng-show="bucket_list_ctrl.privileges" ng-click="bucket_list_ctrl.change_status(item)" id="{{item._id}}check" ng-class="bucket_list_ctrl.icon_a_decision(item.completed)"><i ng-class="bucket_list_ctrl.icon_decision(item.completed)"></i></a>
                     </div>
                     <div class="card-content">
                         <p id="{{ item._id }}description"> {{ item.description }} </p>
@@ -99,7 +117,8 @@
                             <label id="{{ item._id }}label_description" for="{{ item._id }}textarea-description">Description</label>
                         </div>
                         
-                        <button ng-click="bucket_list_ctrl.enable_edit( item )" id="{{ item._id }}edit" class="btn waves-effect waves-light cyan darken-1 edit-description-btn" type="button">Edit<i id="{{ item._id }}edit_icon" class="fa fa-pencil-square-o right"></i></button>
+                        <button ng-show="bucket_list_ctrl.privileges" ng-click="bucket_list_ctrl.enable_edit( item )" id="{{ item._id }}edit" class="btn waves-effect waves-light cyan darken-1 edit-description-btn" 
+                                type="button">Edit<i id="{{ item._id }}edit_icon" class="fa fa-pencil-square-o right"></i></button>
                     </div>
                 </div>
             </div>

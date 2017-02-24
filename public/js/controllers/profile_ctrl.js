@@ -135,11 +135,27 @@
             }
 
             function user_info_res(res){
-                // console.log(res);
-                vm.privileges = res.data.privileges;
-                vm.user = res.data.user;
+                console.log(129, res);
+                var msg = res.data.message;
+                // console.log(2111, msg);
+                if (msg === "token not found") {
+                    console.log("something")
+                    user_fac
+                        .guest_show({user_id : $stateParams.id})
+                        .then(guest_res, err_callback)
+                } else {
+                    vm.privileges = res.data.privileges;
+                    vm.user = res.data.user;
+                }
+            
                 // console.log(1, vm.user.email)
                 // console.log(1, vm.user);
+            }
+
+            function guest_res(res) {
+                console.log(421, res);
+                vm.privileges = res.data.privileges;
+                vm.user = res.data.user;
             }   
             function err_callback(res) {
                 console.log("error");

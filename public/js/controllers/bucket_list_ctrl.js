@@ -2,13 +2,14 @@
     angular.module("bucket_life")
         .controller("BucketListController", BucketListController)
 
-        BucketListController.$inject = ["item_fac", "$stateParams"];
+        BucketListController.$inject = ["item_fac", "$stateParams", "user_fac"];
 
-        function BucketListController(item_fac, $stateParams) {
+        function BucketListController(item_fac, $stateParams, user_fac) {
             var vm = this;
             vm.title = "Bucket List Ctrl title";
             vm.show_status = false;
             vm.network_load = false;
+            vm.privileges = false;
             vm.show_list = function() {
                 vm.network_load = true;
                 vm.show_status = true;
@@ -29,8 +30,21 @@
               
             }
 
+            vm.check_user = function() {
+                user_fac
+                    .guest_show({user_id: $stateParams.id})
+                    .then(user_res, err_callback)
+            }
+            vm.check_user();
+
+            function user_res(res) {
+                console.log(111, res);
+                vm.privileges = res.data.privileges;
+                vm.user = res.data.user;
+            } 
+
             vm.change_status = function(item) {
-                var status = !item.completed;
+               var status = !item.completed;
                vm.load_bar(item, true);
                 item_fac
                     .update(item._id, { status: status })

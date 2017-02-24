@@ -11,12 +11,21 @@ module.exports = {
             }) 
     },
     show: function(req, res) {
+        console.log(1, req.params)
         User
             .findOne( { _id: req.params.id })
             .exec( function(err, user) {
                 if (err) return console.log(err)
                 var privileges = String(user._id) === req.decoded._id;
                 res.json( { success: true, message: "User found.", user: user, privileges: privileges } )
+            })
+    },
+    guest_show: function(req, res) {
+        User
+            .findOne({ _id: req.body.user_id })
+            .exec( function(err, user) {
+                if (err) return console.log(err)
+                res.json({ success: true, message: "user found", user: user, privileges: false})
             })
     },
     create: function(req, res) {
@@ -89,19 +98,25 @@ module.exports = {
             })
     },
     verify_user: function(req, res, next) {
-        console.log(1, "in verify user route")
-        var token = req.body.token || req.query.token || req.headers["x-access-token"];
-        console.log(2, token)
-        if (token) {    
-            jwt.verify(token, process.env.secret, function(err, decoded){
-                if (err) return res.json( { success: false, message: "token expired" } )
-                req.decoded = decoded;
-                console.log(3, decoded);
-                next();
-            })
-        } else {
-            return res.status.json( { success: false, message: "token not found" } )
-        }
+        // if (req.method === "GET") {
+        //     req.decoded = {_id: null}
+        //     next();
+        // } else {
+            console.log(1, "in verify user route")
+            var token = req.body.token || req.query.token || req.headers["x-access-token"];
+            console.log(2, token)
+            if (token) {    
+                jwt.verify(token, process.env.secret, function(err, decoded){
+                    if (err) return res.json( { success: false, message: "token expired" } )
+                    req.decoded = decoded;
+                    console.log(3, decoded);
+                    next();
+                })
+            } else {
+                return res.json( { success: false, message: "token not found" } )
+            }
+        
+        
     },
     login_introduction: function(req, res) {
         var token = req.body.token || req.query.token || req.headers["x-access-token"];

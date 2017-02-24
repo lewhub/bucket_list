@@ -63,7 +63,7 @@
             function signup_res(res) {
                 console.log(res);
                 if (res.data.success) {
-                    $state.go("profile");
+                    $state.go("profile", { id: res.data.user._id });
                 } else {
                     vm.signup_info = {};
                     vm.show_flash_message = true;
