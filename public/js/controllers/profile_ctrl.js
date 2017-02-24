@@ -139,7 +139,6 @@
                 var msg = res.data.message;
                 // console.log(2111, msg);
                 if (msg === "token not found") {
-                    console.log("something")
                     user_fac
                         .guest_show({user_id : $stateParams.id})
                         .then(guest_res, err_callback)

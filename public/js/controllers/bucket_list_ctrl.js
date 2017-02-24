@@ -32,16 +32,30 @@
 
             vm.check_user = function() {
                 user_fac
-                    .guest_show({user_id: $stateParams.id})
+                    .show($stateParams.id)
                     .then(user_res, err_callback)
             }
             vm.check_user();
 
             function user_res(res) {
                 console.log(111, res);
+                var msg = res.data.message;
+                 if (msg === "token not found") {
+                    user_fac
+                        .guest_show({user_id : $stateParams.id})
+                        .then(guest_res, err_callback)
+                } else {
+                        vm.privileges = res.data.privileges;
+                        vm.user = res.data.user;
+                }
+          
+            }
+
+            function guest_res(res) {
+                console.log(421, res);
                 vm.privileges = res.data.privileges;
                 vm.user = res.data.user;
-            } 
+            }    
 
             vm.change_status = function(item) {
                var status = !item.completed;
